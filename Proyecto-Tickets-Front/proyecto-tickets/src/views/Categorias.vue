@@ -1,10 +1,10 @@
 <template>
   <div class="home">
-    <h1>Tickets</h1>
+    <h1>Categorías</h1>
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-10">
-          <Table :items="tickets"></Table>
+        <div class="col-6">
+          <Table :items="categorias"></Table>
         </div>
       </div>
     </div>
@@ -21,13 +21,13 @@ export default {
     Table,
   },
   computed: {
-    ...mapState(["tickets"]),
+    ...mapState(["categorias"]),
   },
   methods: {
-    ...mapActions(["setTickets"]),
+    ...mapActions(["setCategorias"]),
   },
   created() {
-    this.setTickets();
+    this.setCategorias();
   },
 };
 </script>
