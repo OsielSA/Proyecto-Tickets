@@ -13,13 +13,18 @@ const routes = [
   {
     path: '/personal',
     name: 'Personal',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Personal.vue')
+    component: () => import('../views/Personal/Personal.vue')
   },
   {
     path: '/categorias',
     name: 'Categorias',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Categorias.vue')
-  }
+    component: () => import('../views/Categorias.vue')
+  },
+  {
+    path: '/personal/agregar',
+    name: 'AgregarPersona',
+    component: () => import('../views/Personal/AgregarPersona.vue')
+  },
 ]
 
 const router = new VueRouter({

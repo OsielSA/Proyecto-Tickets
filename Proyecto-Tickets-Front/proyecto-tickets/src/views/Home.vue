@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <h1>Tickets</h1>
+    <hr>
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-10">

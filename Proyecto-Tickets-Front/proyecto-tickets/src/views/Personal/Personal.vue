@@ -1,7 +1,12 @@
 <template>
-  <div class="home">
+  <div>
     <h1>Personal</h1>
+    <hr />
     <div class="container">
+      <div class="col-3">
+        <b-button variant="primary" to="/personal/agregar">Agregar Persona</b-button>
+      </div>
+
       <div class="row justify-content-center">
         <div class="col-10">
           <Table :items="personal"></Table>
@@ -12,11 +17,11 @@
 </template>
 
 <script>
-import Table from "../components/Table.vue";
+import Table from "@/components/Table.vue";
 import { mapState, mapActions } from "vuex";
 
 export default {
-  name: "Home",
+  name: "Personal",
   components: {
     Table,
   },

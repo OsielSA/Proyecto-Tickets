@@ -26,7 +26,8 @@ export default new Vuex.Store({
       axios.get('http://localhost:3000/Tickets')
       .then( response => {
         commit('SET_TICKETS', response.data)
-      })
+      }),
+      crearPersona({commit}, {params})
     },
     setPersonal({commit}){
       axios.get('http://localhost:3000/Personas')

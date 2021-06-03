@@ -1,6 +1,7 @@
 <template>
-  <div class="home">
+  <div>
     <h1>Categorías</h1>
+    <hr>
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-6">
@@ -16,7 +17,7 @@ import Table from "../components/Table.vue";
 import { mapState, mapActions } from "vuex";
 
 export default {
-  name: "Home",
+  name: "Categorias",
   components: {
     Table,
   },
