@@ -4,7 +4,6 @@
     <div class="container">
       <b-form @submit.prevent="guardarPersona()">
         <div class="row justify-content-center">
-
           <div class="col-6">
             <Input
               v-model="persona.nombre"
@@ -15,7 +14,8 @@
               mensajeError="El nombre es obligatorio"
               maxlength="50"
             />
-          </div><br>
+          </div>
+          <br />
           <div class="col-6">
             <Input
               v-model="persona.apellido"
@@ -44,8 +44,11 @@
               placeholder="Ingrese la dirección"
               maxlength="150"
             />
-          </div><br>
-            <b-button type="submit" variant="success" id="btnGuardar">Guardar</b-button>
+          </div>
+          <br />
+          <b-button type="submit" variant="success" id="btnGuardar"
+            >Guardar</b-button
+          >
         </div>
       </b-form>
     </div>
@@ -54,7 +57,7 @@
 
 <script>
 import Input from "@/components/Input";
-import {mapActions} from 'vuex'
+import { mapActions } from "vuex";
 export default {
   name: "AgregarPersona",
   components: {
@@ -68,7 +71,7 @@ export default {
         telefono: "",
         direccion: "",
       },
-      erroresValidacion: false
+      erroresValidacion: false,
     };
   },
   computed: {
@@ -79,36 +82,43 @@ export default {
     },
     validacionApellido() {
       return (
-        this.persona.apellido !== undefined && this.persona.apellido.trim() !== ""
+        this.persona.apellido !== undefined &&
+        this.persona.apellido.trim() !== ""
       );
-    }
+    },
   },
   methods: {
-    ...mapActions(['crearPersona']),
+    ...mapActions(["crearPersona"]),
     guardarPersona() {
       //Validar
       if (this.validacionNombre && this.validacionApellido) {
         this.erroresValidacion = false;
-      
-      //Guardar
-      this.crearPersona({
-        params:{
-          nombre: this.persona.nombre,
-          apellido: this.persona.apellido,
-          telefono: this.persona.telefono,
-          direccion: this.persona.direccion
-        },
-        onComplete: (response) => {
-          console.log(Response.data);
-        },
-        onError: (error) => {
-          console.log(error.response.data.mensaje);
-        }
-      })
 
-
-
-      }else {
+        //Guardar
+        this.crearPersona({
+          params: {
+            nombre: this.persona.nombre,
+            apellido: this.persona.apellido,
+            telefono: this.persona.telefono,
+            direccion: this.persona.direccion,
+          },
+          onComplete: (response) => {
+            this.$swal.fire({
+              icon: "success",
+              text: response.data.mensaje,
+            });
+            this.$router.push({
+              name: Personal
+            })
+          },
+          onError: (error) => {
+            this.$swal.fire({
+              icon: "error",
+              text: error.response.data.mensaje,
+            });
+          },
+        });
+      } else {
         this.erroresValidacion = true;
       }
     },
@@ -117,8 +127,8 @@ export default {
 </script>
 
 <style>
-  #btnGuardar{
-    margin: 20px;
-    width: 100px;
-  }
+#btnGuardar {
+  margin: 20px;
+  width: 100px;
+}
 </style>

@@ -25,7 +25,7 @@ export default {
     ...mapState(["tickets"]),
   },
   methods: {
-    ...mapActions(["setTickets"]),
+    ...mapActions(["setTickets"])
   },
   created() {
     this.setTickets();
