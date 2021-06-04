@@ -9,7 +9,11 @@
 
       <div class="row justify-content-center">
         <div class="col-10">
-          <Table :items="personal"></Table>
+          <Table :items="personal" :fields="campos">
+            <template slot="actions" slot-scope="{ item }">
+              <b-button class="me-1" variant="warning" @click="onEditar(item)"><i class="fas fa-edit"></i></b-button>
+            </template>
+          </Table>
         </div>
       </div>
     </div>
@@ -25,11 +29,31 @@ export default {
   components: {
     Table,
   },
+  data(){
+    return {
+      campos: [
+        { key: "id", label: "Clave"},
+        { key: "nombre"},
+        { key: "apellido"},
+        { key: "telefono", label: "Teléfono"},
+        { key: "direccion", label: "Dirección"},
+        { key: "actions", label: "Acciones" },
+      ],
+    };
+  },
   computed: {
     ...mapState(["personal"]),
   },
   methods: {
     ...mapActions(["setPersonal"]),
+    onEditar(item){
+      this.$router.push({
+        name: "EditarPersona",
+        params: {
+          id: item.item.id,
+        },
+      });
+    }
   },
   created() {
     this.setPersonal();

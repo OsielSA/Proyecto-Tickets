@@ -38,7 +38,7 @@ export default new Vuex.Store({
       axios.get('http://localhost:3000/Categorias')
       .then( response => {
         commit('SET_CATEGORIAS', response.data)
-      })
+      });
     },
     crearPersona({commit}, {params, onComplete, onError}){
       axios.post('http://localhost:3000/Personas', params)

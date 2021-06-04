@@ -16,14 +16,19 @@ const routes = [
     component: () => import('../views/Personal/Personal.vue')
   },
   {
-    path: '/categorias',
-    name: 'Categorias',
-    component: () => import('../views/Categorias/Categorias.vue')
-  },
-  {
     path: '/personal/agregar',
     name: 'AgregarPersona',
     component: () => import('../views/Personal/AgregarPersona.vue')
+  },
+  {
+    path: '/personal/editar',
+    name: 'EditarPersona',
+    component: () => import('../views/Personal/EditarPersona.vue')
+  },
+  {
+    path: '/categorias',
+    name: 'Categorias',
+    component: () => import('../views/Categorias/Categorias.vue')
   },
   {
     path: '/categorias/agregar',

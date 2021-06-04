@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Agregar Persona</h1>
+    <h1>Editar Persona</h1>
     <div class="container">
       <b-form @submit.prevent="guardarPersona()">
         <div class="row justify-content-center">
@@ -47,20 +47,24 @@
           </div>
           <br />
           <div class="control">
-            <b-button class="margen" type="submit" variant="success" id="btnGuardar">Guardar</b-button>
+            <b-button class="margen" type="submit" variant="warning" id="btnGuardar">Guardar</b-button>
             <b-button variant="secondary" to="/personal">Cancelar</b-button>
           </div>
+          
         </div>
       </b-form>
     </div>
   </div>
 </template>
 
+
 <script>
+import Vue from "vue";
+import { mapActions, mapState } from "vuex";
 import Input from "@/components/Input";
-import { mapActions } from "vuex";
+
 export default {
-  name: "AgregarPersona",
+  name: "EditarPersona",
   components: {
     Input,
   },
@@ -69,8 +73,8 @@ export default {
       persona: {
         nombre: "",
         apellido: "",
-        telefono: "",
         direccion: "",
+        telefono: "",
       },
       erroresValidacion: false,
     };
@@ -83,46 +87,12 @@ export default {
     },
     validacionApellido() {
       return (
-        this.persona.apellido !== undefined &&
-        this.persona.apellido.trim() !== ""
+        this.persona.apellido !== undefined && this.persona.apellido.trim() !== ""
       );
-    },
-  },
-  methods: {
-    ...mapActions(["crearPersona"]),
-    guardarPersona() {
-      //Validar
-      if (this.validacionNombre && this.validacionApellido) {
-        this.erroresValidacion = false;
-
-        //Guardar
-        this.crearPersona({
-          params: {
-            nombre: this.persona.nombre,
-            apellido: this.persona.apellido,
-            telefono: this.persona.telefono,
-            direccion: this.persona.direccion,
-          },
-          onComplete: (response) => {
-            this.$swal.fire({
-              icon: "success",
-              text: response.data.mensaje,
-            });
-            this.$router.push({
-              name: "Personal"
-            })
-          },
-          onError: (error) => {
-            this.$swal.fire({
-              icon: "error",
-              text: error.response.data.mensaje,
-            });
-          },
-        });
-      } else {
-        this.erroresValidacion = true;
-      }
-    },
+    }
+},
+  created() {
+    console.log("Page Editar: ");
   },
 };
 </script>
