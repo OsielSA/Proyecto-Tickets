@@ -26,8 +26,7 @@ export default new Vuex.Store({
       axios.get('http://localhost:3000/Tickets')
       .then( response => {
         commit('SET_TICKETS', response.data)
-      }),
-      crearPersona({commit}, {params})
+      })
     },
     setPersonal({commit}){
       axios.get('http://localhost:3000/Personas')
@@ -40,6 +39,11 @@ export default new Vuex.Store({
       .then( response => {
         commit('SET_CATEGORIAS', response.data)
       })
+    },
+    crearPersona({commit}, {params, onComplete, onError}){
+      axios.post('http://localhost:3000/Personas', params)
+      .then(onComplete)
+      .catch(onError)
     }
   },
   modules: {

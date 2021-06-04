@@ -11,7 +11,7 @@
               id="nombre"
               titulo="Nombre"
               placeholder="Ingrese el nombre"
-              :error="erroresValidacion"
+              :error="erroresValidacion && !validacionNombre"
               mensajeError="El nombre es obligatorio"
               maxlength="50"
             />
@@ -22,6 +22,7 @@
               id="apellido"
               titulo="Apellido"
               placeholder="Ingrese el apellido"
+              :error="erroresValidacion && !validacionApellido"
               mensajeError="El apellido es obligatorio"
               maxlength="80"
             />
@@ -53,6 +54,7 @@
 
 <script>
 import Input from "@/components/Input";
+import {mapActions} from 'vuex'
 export default {
   name: "AgregarPersona",
   components: {
@@ -69,9 +71,46 @@ export default {
       erroresValidacion: false
     };
   },
+  computed: {
+    validacionNombre() {
+      return (
+        this.persona.nombre !== undefined && this.persona.nombre.trim() !== ""
+      );
+    },
+    validacionApellido() {
+      return (
+        this.persona.apellido !== undefined && this.persona.apellido.trim() !== ""
+      );
+    }
+  },
   methods: {
+    ...mapActions(['crearPersona']),
     guardarPersona() {
-      console.log("GUARDAR");
+      //Validar
+      if (this.validacionNombre && this.validacionApellido) {
+        this.erroresValidacion = false;
+      
+      //Guardar
+      this.crearPersona({
+        params:{
+          nombre: this.persona.nombre,
+          apellido: this.persona.apellido,
+          telefono: this.persona.telefono,
+          direccion: this.persona.direccion
+        },
+        onComplete: (response) => {
+          console.log(Response.data);
+        },
+        onError: (error) => {
+          console.log(error.response.data.mensaje);
+        }
+      })
+
+
+
+      }else {
+        this.erroresValidacion = true;
+      }
     },
   },
 };
