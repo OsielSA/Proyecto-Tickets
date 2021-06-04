@@ -47,10 +47,15 @@
           </div>
           <br />
           <div class="control">
-            <b-button class="margen" type="submit" variant="warning" id="btnGuardar">Guardar</b-button>
+            <b-button
+              class="margen"
+              type="submit"
+              variant="warning"
+              id="btnGuardar"
+              >Guardar</b-button
+            >
             <b-button variant="secondary" to="/personal">Cancelar</b-button>
           </div>
-          
         </div>
       </b-form>
     </div>
@@ -87,20 +92,30 @@ export default {
     },
     validacionApellido() {
       return (
-        this.persona.apellido !== undefined && this.persona.apellido.trim() !== ""
+        this.persona.apellido !== undefined &&
+        this.persona.apellido.trim() !== ""
       );
-    }
-},
+    },
+  },
+  methods: {
+    ...mapActions(["obtenerPersona", "editarPersona"]),
+  },
   created() {
-    console.log("Page Editar: ");
+    this.obtenerPersona({
+      id: this.$route.params.id,
+      onComplete: (response) => {
+        Vue.set(this, "persona", response.data.data);
+        console.log(response.data.data);
+      },
+    });
   },
 };
 </script>
 
 <style>
-.control{
-    text-align: right;
-    padding: 15px;
+.control {
+  text-align: right;
+  padding: 15px;
 }
 .margen {
   margin-right: 15px;
