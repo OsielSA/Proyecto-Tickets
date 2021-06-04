@@ -18,12 +18,17 @@ const routes = [
   {
     path: '/categorias',
     name: 'Categorias',
-    component: () => import('../views/Categorias.vue')
+    component: () => import('../views/Categorias/Categorias.vue')
   },
   {
     path: '/personal/agregar',
     name: 'AgregarPersona',
     component: () => import('../views/Personal/AgregarPersona.vue')
+  },
+  {
+    path: '/categorias/agregar',
+    name: 'AgregarCategoria',
+    component: () => import('../views/Categorias/AgregarCategoria.vue')
   },
 ]
 

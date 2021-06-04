@@ -4,7 +4,7 @@
     <hr />
     <div class="container">
       <div class="col-3">
-        <b-button variant="primary" to="/personal/agregar">Agregar Persona</b-button>
+        <b-button variant="primary" to="/personal/agregar">Agregar Persona <i class="fas fa-user-plus"></i></b-button>
       </div>
 
       <div class="row justify-content-center">

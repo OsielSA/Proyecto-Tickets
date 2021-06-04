@@ -108,7 +108,7 @@ export default {
               text: response.data.mensaje,
             });
             this.$router.push({
-              name: Personal
+              name: "Personal"
             })
           },
           onError: (error) => {
