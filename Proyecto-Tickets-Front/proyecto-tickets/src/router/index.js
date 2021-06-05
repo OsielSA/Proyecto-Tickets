@@ -1,6 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Personal from '../views/Personal/Personal.vue'
+import AgregarPersona from '../views/Personal/AgregarPersona.vue'
+import EditarPersona from '../views/Personal/EditarPersona.vue'
+import Categorias from '../views/Categorias/Categorias.vue'
+import AgregarCategoria from '../views/Categorias/AgregarCategoria.vue'
 
 Vue.use(VueRouter)
 
@@ -13,27 +18,27 @@ const routes = [
   {
     path: '/personal',
     name: 'Personal',
-    component: () => import('../views/Personal/Personal.vue')
+    component: Personal
   },
   {
     path: '/personal/agregar',
     name: 'AgregarPersona',
-    component: () => import('../views/Personal/AgregarPersona.vue')
+    component: AgregarPersona
   },
   {
-    path: '/personal/editar',
+    path: '/personal/editarPersona/:id',
     name: 'EditarPersona',
-    component: () => import('../views/Personal/EditarPersona.vue')
+    component: EditarPersona
   },
   {
     path: '/categorias',
     name: 'Categorias',
-    component: () => import('../views/Categorias/Categorias.vue')
+    component: Categorias
   },
   {
     path: '/categorias/agregar',
     name: 'AgregarCategoria',
-    component: () => import('../views/Categorias/AgregarCategoria.vue')
+    component: AgregarCategoria
   },
 ]
 

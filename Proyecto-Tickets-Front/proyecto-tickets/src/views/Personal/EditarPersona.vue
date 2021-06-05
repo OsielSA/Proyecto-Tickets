@@ -98,14 +98,21 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["obtenerPersona", "editarPersona"]),
+    ...mapActions(['obtenerPersona', 'editarPersona']),
+    guardarPersona() {
+      if (this.validacionNombre && this.validacionApellido) {
+        this.erroresValidacion = false;
+      } else {
+        this.erroresValidacion = true;
+      }
+    }
   },
   created() {
     this.obtenerPersona({
       id: this.$route.params.id,
       onComplete: (response) => {
-        Vue.set(this, "persona", response.data.data);
-        console.log(response.data.data);
+        console.log(response.data.data)
+        Vue.set(this, 'persona', response.data.data[0]);
       },
     });
   },

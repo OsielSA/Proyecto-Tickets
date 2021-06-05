@@ -35,17 +35,27 @@ export default {
         { key: "id", label: "Clave"},
         { key: "nombre"},
         { key: "apellido"},
-        { key: "telefono", label: "Teléfono"},
-        { key: "direccion", label: "Dirección"},
+        { key: "telefono", 
+          label: "Teléfono",
+          formatter: (value) => {
+              return value || "Sin teléfono";
+          }
+        },
+        { key: "direccion", 
+          label: "Dirección",
+          formatter: (value) => {
+              return value || "Sin dirección";
+          }
+        },
         { key: "actions", label: "Acciones" },
       ],
     };
   },
   computed: {
-    ...mapState(["personal"]),
+    ...mapState(['personal']),
   },
   methods: {
-    ...mapActions(["setPersonal"]),
+    ...mapActions(['setPersonal']),
     onEditar(item){
       this.$router.push({
         name: "EditarPersona",
