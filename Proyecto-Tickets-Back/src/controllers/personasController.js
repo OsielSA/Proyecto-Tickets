@@ -32,19 +32,27 @@ function obtenerPersona(req, res) {
     }
 }
 
+function  validaciones(persona) {
+    var mensaje ="";
+    if(!persona.nombre) {
+        return mensaje= "El nombre es obligatorio";
+    }
+     if(!persona.apellido) {
+        return mensaje= "El apellido es obligatorio";
+    }
+    if(persona.telefono && persona.telefono.length !== 10) {
+        return  mensaje= "Telefono debe de ser de 10 caracteres";
+    } 
+    return mensaje;
+}
+
 function crear(req, res) {
     if(connection) {
         console.log(req.body);
         const persona = req.body;
-
-        if(!persona.nombre) {
-            return res.status(400).send({ error: true, mensaje: "El nombre es obligatorio"});
-        }
-        if(!persona.apellido) {
-            return res.status(400).send({ error: true, mensaje: "El apellido es obligatorio"});
-        }
-        if(persona.telefono && persona.telefono.length !== 10) {
-            return res.status(400).send({ error: true, mensaje: "La longitud debe ser de 10 caracteres"});
+        var mensajev = validaciones(persona);
+        if(mensajev !==""){
+            return res.status(400).send({ error: true, mensaje: mensajev});
         }
 
         let sql = "INSERT INTO Personal set ?";
@@ -64,17 +72,24 @@ function editar(req, res) {
     if(connection){
         const { id } = req.params;
         const persona = req.body;
-
+        var mensajev = validaciones(persona);
+        if(mensajev !==""){
+            return res.status(400).send({ error: true, mensaje: mensajev});
+        }
         let sql = "UPDATE Personal set ? WHERE id = ?";
         connection.query(sql, [persona, id], (err, data) => {
             if(err) {
                 res.json(err);
             } else {
-                let mensaje = "";
+                let mensaje = "Datos modificafos";
                 if(data.changedRows === 0) {
                     mensaje = "La informacion es la misma";
+                    res.json({error: true, data, mensaje: mensaje });
+                } else{
+                    res.json({error: false, data, mensaje: mensaje });
+
                 }
-                res.json({error: false, data, mensaje: mensaje });
+        
             }
         })
         

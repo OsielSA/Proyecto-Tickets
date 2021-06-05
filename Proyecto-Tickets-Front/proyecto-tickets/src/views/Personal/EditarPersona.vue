@@ -34,6 +34,7 @@
               titulo="Teléfono"
               placeholder="Ingrese el teléfono"
               maxlength="10"
+               
             />
           </div>
           <div class="col-6">
@@ -100,13 +101,43 @@ export default {
   methods: {
     ...mapActions(['obtenerPersona', 'editarPersona']),
     guardarPersona() {
-      if (this.validacionNombre && this.validacionApellido) {
+        if (this.validacionNombre && this.validacionApellido) {
         this.erroresValidacion = false;
+
+        //Guardar
+         this.editarPersona({
+          id: this.$route.params.id,
+          params: this.persona,
+          onComplete: (response) => {
+            if(response.data.error){
+              this.$notify({
+              type: 'error', 
+              title: response.data.mensaje,
+            });
+            } else {
+              console.log(response.data);
+            this.$notify({
+              type: 'success', 
+              title: response.data.mensaje,
+            });
+            this.$router.push({
+                name: 'Personal'
+            })
+            }
+          },
+          onError: (error) => {
+            console.log(error.response.data.mensaje);
+            this.$notify({
+              type: 'error', 
+              title: error.response.data.mensaje,
+            });
+          }, 
+        }); 
       } else {
         this.erroresValidacion = true;
       }
     }
-  },
+},
   created() {
     this.obtenerPersona({
       id: this.$route.params.id,

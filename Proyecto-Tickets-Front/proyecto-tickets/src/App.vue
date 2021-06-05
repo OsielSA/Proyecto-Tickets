@@ -14,8 +14,11 @@
             </li>
             <li class="nav-item">
               <router-link class="nav-link" to="/categorias">Categorías</router-link>
+
             </li>
           </ul>
+              <notifications position="bottom right" />
+          
 
         </div>
       </div>
