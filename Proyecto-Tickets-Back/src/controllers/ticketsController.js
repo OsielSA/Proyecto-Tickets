@@ -2,7 +2,7 @@ const connection = require('../config/connection');
 
 function listar(req, res) {
     if(connection) {
-        let sql = "SELECT * FROM Tickets";
+        let sql = "SELECT * FROM infoTickets";
         connection.query(sql, (err, tickets) => {
             if(err) {
                 res.json(err);
