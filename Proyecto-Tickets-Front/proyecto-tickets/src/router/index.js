@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Tickets from '../views/Tickets/Tickets.vue'
+import AgregarTickets from '../views/Tickets/AgregarTickets.vue'
+import EditarTickets from '../views/Tickets/EditarTickets.vue'
 import Personal from '../views/Personal/Personal.vue'
 import AgregarPersona from '../views/Personal/AgregarPersona.vue'
 import EditarPersona from '../views/Personal/EditarPersona.vue'
@@ -14,6 +17,21 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/tickets',
+    name: 'Tickets',
+    component: Tickets
+  },
+  {
+    path: '/tickets/agregar',
+    name: 'AgregarTickets',
+    component: AgregarTickets
+  },
+  {
+    path: '/tickets/editar',
+    name: 'EditarTickets',
+    component: EditarTickets
   },
   {
     path: '/personal',

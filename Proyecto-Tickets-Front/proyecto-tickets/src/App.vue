@@ -7,14 +7,16 @@
 
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <router-link class="nav-link active" to="/">Tickets</router-link>
+              <router-link class="nav-link active" to="/">Inicio</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link active" to="/tickets">Tickets</router-link>
             </li>
             <li class="nav-item">
               <router-link class="nav-link" to="/personal">Personal</router-link>
             </li>
             <li class="nav-item">
               <router-link class="nav-link" to="/categorias">Categorías</router-link>
-
             </li>
           </ul>
               <notifications position="bottom right" />

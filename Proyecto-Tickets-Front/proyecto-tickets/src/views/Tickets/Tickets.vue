@@ -1,8 +1,11 @@
 <template>
   <div class="home">
-    <h1>Inicio</h1>
-    <hr>
+    <h1>Tickets</h1>
+    <hr />
     <div class="container">
+      <div class="col-3">
+        <b-button variant="primary" to="/tickets/agregar">Agregar Ticket <i class="fas fa-plus"></i></b-button>
+      </div>
       <div class="row justify-content-center">
         <div class="col-10">
           <Table :items="tickets"></Table>
@@ -13,11 +16,11 @@
 </template>
 
 <script>
-import Table from "../components/Table.vue";
+import Table from "@/components/Table.vue";
 import { mapState, mapActions } from "vuex";
 
 export default {
-  name: "Home",
+  name: "Tickets",
   components: {
     Table,
   },
@@ -25,7 +28,7 @@ export default {
     ...mapState(["tickets"]),
   },
   methods: {
-    ...mapActions(["setTickets"])
+    ...mapActions(["setTickets"]),
   },
   created() {
     this.setTickets();
