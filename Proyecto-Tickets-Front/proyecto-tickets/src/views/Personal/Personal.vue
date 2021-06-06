@@ -12,6 +12,7 @@
           <Table :items="personal" :fields="campos">
             <template slot="actions" slot-scope="{ item }">
               <b-button class="me-1" variant="warning" @click="onEditar(item)"><i class="fas fa-edit"></i></b-button>
+              <b-button class="me-1" variant="danger" @click="onEliminar(item)"><i class="far fa-trash-alt"></i></b-button>
             </template>
           </Table>
         </div>
@@ -55,7 +56,7 @@ export default {
     ...mapState(['personal']),
   },
   methods: {
-    ...mapActions(['setPersonal']),
+    ...mapActions(['setPersonal', 'eliminarPersona']),
     onEditar(item){
       this.$router.push({
         name: "EditarPersona",
@@ -63,9 +64,37 @@ export default {
           id: item.item.id,
         },
       });
+    },
+    onEliminar(item){
+      this.$swal.fire({
+      title: 'Eliminar Persona',
+      text: '¿Seguro de eliminar a esta persona?',
+      showDenyButton: true,
+      confirmButtonText: `Si`,
+      denyButtonText: `No`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.eliminarPersona({
+            id: item.item.id,
+            onComplete: (response) => {
+              this.$swal.fire({
+                icon: "success",
+                text: response.data.mensaje,
+                timer: 2000,
+                confirmButtonText: `Ok`,
+              }).then((result) => {
+                this.setPersonal()
+              })
+            },
+            onError: (response) => {
+              this.$swal.fire(response.data.mensaje, '', 'error')
+            },
+          });
+        }
+      })
     }
   },
-  created() {
+  mounted() {
     this.setPersonal();
   },
 };
