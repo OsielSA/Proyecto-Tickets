@@ -38,12 +38,6 @@ export default new Vuex.Store({
         commit('SET_PERSONAL', response.data)
       })
     },
-    setCategorias({commit}){
-      axios.get('http://localhost:3000/Categorias')
-      .then( response => {
-        commit('SET_CATEGORIAS', response.data)
-      });
-    },
     crearPersona({commit}, {params, onComplete, onError}){
       axios.post('http://localhost:3000/Personas', params)
       .then(onComplete)
@@ -66,7 +60,23 @@ export default new Vuex.Store({
       axios.delete(`http://localhost:3000/Personas/${id}`)
       .then(onComplete)
       .catch(onError)
-    }
+    },
+    setCategorias({commit}){
+      axios.get('http://localhost:3000/Categorias')
+      .then( response => {
+        commit('SET_CATEGORIAS', response.data)
+      });
+    },
+    crearCategoria({commit}, {params, onComplete, onError}){
+      axios.post('http://localhost:3000/Categorias', params)
+      .then(onComplete)
+      .catch(onError)
+    },
+    eliminarCategoria({commit}, {id, onComplete, onError}){
+      axios.delete(`http://localhost:3000/Categorias/${id}`)
+      .then(onComplete)
+      .catch(onError)
+    },
   },
   modules: {
   }
