@@ -12,6 +12,8 @@ routes.post('/Tickets/', ticketsController.crear)
 
 routes.put('/Tickets/:id', ticketsController.editar);
 
+routes.put('/TicketEstatus/:id', ticketsController.editarEstatus);
+
 routes.delete('/Tickets/:id', ticketsController.eliminar);
 
 module.exports = routes;

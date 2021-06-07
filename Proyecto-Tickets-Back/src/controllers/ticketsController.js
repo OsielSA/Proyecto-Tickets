@@ -69,6 +69,7 @@ function editar(req, res) {
         const ticket = req.body;
 
         let sql = "UPDATE Tickets set ? WHERE id = ?";
+        console.log(sql)
         connection.query(sql, [ticket, id], (err, data) => {
             if(err) {
                 res.json(err);
@@ -77,7 +78,29 @@ function editar(req, res) {
                 if(data.changedRows === 0) {
                     mensaje = "La informacion es la misma";
                 }
-                res.json({error: false, data, mensaje: mensaje });
+                res.json({error: false, data, mensaje: "Ticket Actualizado" });
+            }
+        })
+        
+    }
+}
+
+function editarEstatus(req, res) {
+    if(connection){
+        const { id } = req.params;
+        const ticket = req.body;
+
+        let sql = "UPDATE Tickets set ?  WHERE id = ?";
+        console.log(sql)
+        connection.query(sql, [ticket, id], (err, data) => {
+            if(err) {
+                res.json(err);
+            } else {
+                let mensaje = "";
+                if(data.changedRows === 0) {
+                    mensaje = "La informacion es la misma";
+                }
+                res.json({error: false, data, mensaje: "Ticket Actualizado" });
             }
         })
         
@@ -111,5 +134,6 @@ module.exports = {
     obtenerTicket,
     crear,
     editar,
+    editarEstatus,
     eliminar
 }

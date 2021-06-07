@@ -57,6 +57,12 @@ export default new Vuex.Store({
       .then(onComplete)
       .catch(onError)
     },
+    editarTicketEstatus({commit}, {id, params, onComplete, onError} ) {
+
+      axios.put(`http://localhost:3000/TicketEstatus/${id}`, params)
+      .then(onComplete)
+      .catch(onError)
+    },
     eliminarTicket({commit}, {id, onComplete, onError}){
       axios.delete(`http://localhost:3000/Tickets/${id}`)
       .then(onComplete)

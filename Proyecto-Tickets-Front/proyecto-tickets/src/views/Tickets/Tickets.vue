@@ -8,19 +8,34 @@
       </div>
       <div class="row justify-content-center">
         <div class="col-10">
-          <Table :items="tickets" :fields="campos">
+          <Table :items="tickets" :fields="campos" ref="table">
             <template slot="actions" slot-scope="{ item }">
               <b-button class="me-1" variant="warning" @click="onEditar(item)"><i class="fas fa-edit"></i></b-button>
               <b-button class="me-1" variant="danger" @click="onEliminar(item)"><i class="far fa-trash-alt"></i></b-button>
-              <b-button class="me-1" variant="outline-primary" @click="modalShow = !modalShow"><i class="fas fa-edit"></i>Editar Estatus</b-button>
-            </template>
+              <b-button id="show-btn" variant="outline-primary" @click="showModal(item)" v-model="idRow">Editar Estatus</b-button>            
+             </template>
           </Table>
-          <div>
-            <b-modal v-model="modalShow">Hello From Modal!</b-modal>
-          </div>
-        </div>
+
+        </div>  
       </div>
     </div>
+
+    
+                    <b-modal ref="my-modal" hide-footer title="Editar Estatus" >
+                      <div class="d-block text-center">
+                      <h3>Ticket: {{this.idRow}}</h3>
+                      <select class="form-control" id="prioridad" name="prioridad" required v-model="estatusSelect">
+                        <option disabled selected hidden value="">Cambiar estatus</option>
+                        <option value="ABT">Abierto</option>
+                        <option value="ESP">En espera</option>
+                        <option value="FIN">Finalizado</option>
+                      </select>
+                      <b-button class="mt-3" variant="outline-danger" block @click="hideModal">Cancelar</b-button>
+                      <b-button class="mt-3" variant="outline-warning" block @click="onEstatus()">Guardar</b-button>
+                      </div>
+                    </b-modal>
+                     
+   
   </div>
 </template>
 
@@ -36,6 +51,8 @@ export default {
 data(){
     return {
       modalShow: false,
+      estatusSelect:"",
+      idRow:"",
       campos: [
         { key: "id", label: "Clave"},
         { key: "nombre"},
@@ -55,7 +72,7 @@ data(){
     ...mapState(['tickets']),
   },
   methods: {
-    ...mapActions(['setTickets', 'eliminarTicket']),
+    ...mapActions(['setTickets', 'eliminarTicket','editarTicket','editarTicketEstatus']),
     onEditar(item){
       this.$router.push({
         name: "EditarTicket",
@@ -92,12 +109,45 @@ data(){
         }
       })
     },
-    onEstatus(item){
+    showModal(item) {
+        this.$refs['my-modal'].show()
+        this.idRow = item.item.id
+      },
+      hideModal() {
+        this.$refs['my-modal'].hide()
+      },
+      onEstatus() {
+        this.editarTicketEstatus({
+            id: this.idRow,
+          params: {
+            estatus: this.estatusSelect,
+          },
+          onComplete: (response) => {
+            this.$refs['my-modal'].hide()
+            this.$swal.fire({
+              icon: "success",
+              text: response.data.mensaje,
+            }).then((result) => {
+              if(result) {
+                this.setTickets();
+              }
+            })
+          },
+          onError: (error) => {
+           this.$refs['my-modal'].hide()
+            this.$swal.fire({
+              icon: "error",
+              text: error.response.data.mensaje,
+            });
+          },
+        })
       
-    }
+
+      }
+    
   },
   mounted() {
     this.setTickets();
-  },
+  }
 };
 </script>
