@@ -45,6 +45,8 @@ export default new Vuex.Store({
       .catch(onError)
     },
     obtenerTicket({commit}, {id, onComplete, onError}) {
+
+      console.log("entro al obtener ticket")
       axios.get(`http://localhost:3000/Tickets/${id}`)
       .then( response => {
         commit('SET_TICKET', response.data.data);
@@ -53,6 +55,8 @@ export default new Vuex.Store({
       .catch(onError)
     },
     editarTicket({commit}, {id, params, onComplete, onError} ) {
+      console.log("entro al obtener editar ticket")
+
       axios.put(`http://localhost:3000/Tickets/${id}`, params)
       .then(onComplete)
       .catch(onError)

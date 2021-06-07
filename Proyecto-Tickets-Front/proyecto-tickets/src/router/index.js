@@ -29,7 +29,7 @@ const routes = [
     component: AgregarTickets
   },
   {
-    path: '/tickets/editar',
+    path: '/tickets/editarTickets/:id',
     name: 'EditarTickets',
     component: EditarTickets
   },

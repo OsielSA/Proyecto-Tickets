@@ -10,7 +10,7 @@
         <div class="col-10">
           <Table :items="tickets" :fields="campos" ref="table">
             <template slot="actions" slot-scope="{ item }">
-              <b-button class="me-1" variant="warning" @click="onEditar(item)"><i class="fas fa-edit"></i></b-button>
+              <b-button class="me-1" variant="warning"  @click="onEditar(item)"><i class="fas fa-edit"></i></b-button>
               <b-button class="me-1" variant="danger" @click="onEliminar(item)"><i class="far fa-trash-alt"></i></b-button>
               <b-button id="show-btn" variant="outline-primary" @click="showModal(item)" v-model="idRow">Editar Estatus</b-button>            
              </template>
@@ -19,7 +19,6 @@
         </div>  
       </div>
     </div>
-
     
                     <b-modal ref="my-modal" hide-footer title="Editar Estatus" >
                       <div class="d-block text-center">
@@ -75,7 +74,7 @@ data(){
     ...mapActions(['setTickets', 'eliminarTicket','editarTicket','editarTicketEstatus']),
     onEditar(item){
       this.$router.push({
-        name: "EditarTicket",
+        name: "EditarTickets",
         params: {
           id: item.item.id,
         },
