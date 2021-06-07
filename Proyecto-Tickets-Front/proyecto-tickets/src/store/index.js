@@ -7,6 +7,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     tickets: [],
+    ticket: {},
     personal: [],
     persona: {},
     categorias: []
@@ -14,6 +15,9 @@ export default new Vuex.Store({
   mutations: {
     SET_TICKETS(state, tickets){
       state.tickets = tickets;
+    },
+    SET_TICKET(state, ticket){
+      state.ticket = ticket;
     },
     SET_PERSONAL(state, personal){
       state.personal = personal;
@@ -35,18 +39,19 @@ export default new Vuex.Store({
       })
     },
     crearTicket({commit}, {params, onComplete, onError}){
+      console.log(params)
       axios.post('http://localhost:3000/Tickets', params)
       .then(onComplete)
       .catch(onError)
     },
-    /*obtenerTicket({commit}, {id, onComplete, onError}) {
+    obtenerTicket({commit}, {id, onComplete, onError}) {
       axios.get(`http://localhost:3000/Tickets/${id}`)
       .then( response => {
-        commit('SET_PERSONA', response.data.data);
+        commit('SET_TICKET', response.data.data);
         onComplete(response)
       })
       .catch(onError)
-    },*/
+    },
     editarTicket({commit}, {id, params, onComplete, onError} ) {
       axios.put(`http://localhost:3000/Tickets/${id}`, params)
       .then(onComplete)

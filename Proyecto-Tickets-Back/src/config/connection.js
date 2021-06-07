@@ -4,8 +4,8 @@ const objectConnection = {
     "host": "localhost",
     "port": "3306",
     "user": "root",
-    //"password": "almaMjz99.",
-    "password": "1596",
+    "password": "password",
+    //"password": "1596",
     "database": "TicketsDB"
 }
 

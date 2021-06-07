@@ -2,7 +2,7 @@ const connection = require('../config/connection');
 
 function listar(req, res) {
     if(connection) {
-        let sql = "SELECT * FROM infoTickets";
+        let sql = "SELECT * FROM Tickets";
         connection.query(sql, (err, tickets) => {
             if(err) {
                 res.json(err);
@@ -42,9 +42,6 @@ function crear(req, res) {
         }
         if(!ticket.prioridad) {
             return res.status(400).send({ error: true, mensaje: "La prioridad es obligatoria"});
-        }
-        if(!ticket.estatus) {
-            return res.status(400).send({ error: true, mensaje: "El estatus es obligatorio"});
         }
         if(!ticket.personalID) {
             return res.status(400).send({ error: true, mensaje: "Debe seleccionar una Persona"});
