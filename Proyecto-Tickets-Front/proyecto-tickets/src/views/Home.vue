@@ -4,8 +4,25 @@
     <hr>
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-10">
-          <b-table striped hover :items="tickets" :fields="campos" :tbody-tr-class="ColorEstatus"></b-table>
+        <div class="col-6">
+          <select v-model="categoriaSeleccionada" class="form-control">
+            <option value="0" selected>Todas las categorías</option>
+            <option v-for="categoria in categorias" :value="categoria.id">{{categoria.nombre}}</option>
+          </select>
+        </div>
+      </div><br>
+      <div class="row justify-content-center">
+        <div class="col-6">
+          
+          <Tarjeta v-for="t in ticketsFiltrados"
+                   :key="t.id"
+                   :nombre="t.nombre"
+                   :descripcion="t.descripcion"
+                   :categoria="t.nombreCategoria"
+                   :estatus="t.estatus"
+                   >
+          </Tarjeta>
+
         </div>
       </div>
     </div>
@@ -13,49 +30,41 @@
 </template>
 
 <script>
-import Table from "../components/Table.vue";
+import Tarjeta from "../components/Tarjeta.vue";
+
 import { mapState, mapActions } from "vuex";
 
 export default {
   name: "Home",
   components: {
-    Table,
+    Tarjeta,
   },
-  data(){
+  data () {
     return {
-      campos: [
-        {key: "nombre", nombre: "Nombre del Ticket"},
-        {key: "categoriaID", nombre: "Categoría"},
-        {key: "estatus"}
-      ]
+      categoriaSeleccionada: 0
     }
   },
   computed: {
-    ...mapState(["tickets"]),
+    ...mapState(["tickets", "categorias"]),
+    ticketsFiltrados() {
+		  if (this.categoriaSeleccionada == 0) {
+		    return this.tickets;
+		  } else {
+		    return this.tickets.filter(ticket =>{
+		      return ticket.categoriaID == this.categoriaSeleccionada;
+		    })
+		  }
+		}
   },
   methods: {
-    ...mapActions(["setTickets"]),
-    ColorEstatus(item, type) {
-			if (!item || type !== "row") return;
-			if (item.estatus === "ABT") return "rowRed";
-			if (item.estatus === "ESP") return "rowGreen";
-			if (item.estatus === "FIN") return "rowGrey";
-		}
+    ...mapActions(["setTickets", "setCategorias"])
   },
   created() {
     this.setTickets();
+    this.setCategorias();
   },
 };
 </script>
 
 <style>
-  .rowRed{
-    background-color: #F77070;
-  }
-  .rowGreen{
-    background-color: #A4BF8C;
-  }
-  .rowGrey{
-    background-color: #C1C1C1;
-  }
 </style>
