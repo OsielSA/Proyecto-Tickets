@@ -7,7 +7,7 @@
         <div class="col-6">
           <select v-model="categoriaSeleccionada" class="form-control">
             <option value="0" selected>Todas las categorías</option>
-            <option v-for="categoria in categorias" :value="categoria.id">{{categoria.nombre}}</option>
+            <option v-for="categoria in categorias" :value="categoria.id" v-bind:key="categoria.id">{{categoria.nombre}}</option>
           </select>
         </div>
       </div><br>
