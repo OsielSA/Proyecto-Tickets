@@ -28,3 +28,16 @@ CREATE TABLE Tickets(
     foreign key(personalID) references Personal(id),
     foreign key(categoriaID) references Categorias(id)
 );
+
+create view infoTickets
+as
+select T.id,
+       T.nombre,
+       descripcion,
+       prioridad,
+       estatus,
+       personalID,
+       concat(P.nombre, " ", P.apellido) as nombrePersona,
+       categoriaID, C.nombre as nombreCategoria
+from Tickets T inner join Personal P on T.personalID = P.id
+			   inner join Categorias C on T.categoriaID = C.id;
